@@ -3,9 +3,9 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use App\Http\Controllers\puntoController;
+use App\Http\Controllers\API\PuntoController;
 
-class poll extends Command
+class Poll extends Command
 {
     /**
      * The name and signature of the console command.
@@ -38,8 +38,6 @@ class poll extends Command
      */
     public function handle()
     {
-        // $client = new \GuzzleHttp\Client();
-        // $res = $client->get('https://api.hikaro.space/punto'); 
-        puntoController::punto();
+        app()->make(PuntoController::class)->punto();
     }
 }

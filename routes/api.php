@@ -1,7 +1,4 @@
 <?php
-
-use Illuminate\Http\Request;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -13,10 +10,12 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::post('login', 'API\UserController@login');
-Route::post('register', 'API\UserController@register');
-Route::get ('punto', 'puntoController@punto');
-Route::get ('message', 'puntoController@testMessage');
-Route::group(['middleware' => 'auth:api'], function(){
-Route::post('details', 'API\UserController@details');
+Route::post('login', 'UserController@login');
+Route::post('register', 'UserController@register');
+
+Route::get('punto', 'PuntoController@punto');
+Route::get('message', 'PuntoController@message');
+
+Route::group(['middleware' => 'auth:api'], function () {
+    Route::post('details', 'UserController@details');
 });
