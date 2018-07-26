@@ -46,11 +46,7 @@ $input = $request->all();
         $success['name'] =  $user->name;
 return response()->json(['success'=>$success], $this-> successStatus); 
     }
-/** 
-     * details api 
-     * 
-     * @return \Illuminate\Http\Response 
-     */ 
+
     public function details() 
     { 
         $user = Auth::user(); 
