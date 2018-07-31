@@ -33,7 +33,7 @@ class PuntoController extends BaseController
         ]);
     }
 
-    private function checkMessage(array $data)
+    private function checkMessage($data)
     {
         $message = $data['message'];
         $chatId = $message['chat']['id'];
@@ -60,12 +60,18 @@ class PuntoController extends BaseController
                     case '/caps':
                         return $this->capsBot($message);
                         break;
+                    case '/punto@japananimetime_bot':
+                        return $this->puntoBot($message);
+                        break;
+                    case '/caps@japananimetime_bot':
+                        return $this->capsBot($message);
+                        break;
                 }
             }
         }
     }
 
-    private function puntoBot(array $message)
+    private function puntoBot($message)
     {
         $text = $message['reply_to_message']['text'];
         $char_array = preg_split('//u', $text, null, PREG_SPLIT_NO_EMPTY);
@@ -86,7 +92,7 @@ class PuntoController extends BaseController
         $this->saveMessage($message['chat']['id'], $message['message_id'], $result);
     }
 
-    private function capsBot(array $message)
+    private function capsBot($message)
     {
         $text = $message['reply_to_message']['text'];
         $char_array = preg_split('//u', $text, null, PREG_SPLIT_NO_EMPTY);
@@ -105,5 +111,9 @@ class PuntoController extends BaseController
             'text' => $result
         ]);
         $this->saveMessage($message['chat']['id'], $message['message_id'], $result);
+    }
+
+    private function saveMessage($chatId, $messageId, $result){
+    	$this->repository->save($chatId, $messageId, $result);
     }
 }

@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Repositories;
-use Redis;
+use Illuminate\Support\Facades\Redis;
 
 class MessageRepo
 {
@@ -14,11 +14,11 @@ class MessageRepo
 
     public function save(int $shatId, int $messageId, string $text = 'noText'): void
     {
-        $this->driver->hset($shatId, $messageId, $text);
+        Redis::hset($shatId, $messageId, $text);
     }
 
     public function check(int $shatId, int $messageId): bool
     {
-        return $this->driver->hexists($shatId, $messageId);
+        return Redis::hexists($shatId, $messageId);
     }
 }
