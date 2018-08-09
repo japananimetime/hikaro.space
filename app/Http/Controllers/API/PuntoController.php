@@ -19,7 +19,9 @@ class PuntoController extends BaseController
     {
         $response = Telegram::getUpdates();
         foreach ($response as $message) {
-            $this->checkMessage($message);
+        	if(isset($message['message'])){
+        		$this->checkMessage($message);
+        	}            
         }
     }
 
@@ -28,9 +30,10 @@ class PuntoController extends BaseController
         $response = Telegram::getUpdates();
         $message = end($response)['message'];
         Telegram::sendMessage([
-            'chat_id' => $message['chat']['id'],
-            'text' => '@japananimetime'
+            'chat_id' => '-1001269227868',
+            'text' => $_POST['message']
         ]);
+        // print_r($response);
     }
 
     private function checkMessage($data)
